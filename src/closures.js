@@ -3,22 +3,14 @@
 We've written a few tests for your Game Generator function which you can find them in the 'specs' folder.
 By the end of this exercise, you'll be writing tests for the functions yourself.
 */
-// function getAndSet() {
-//   // YOUR CODE HERE
-//   let getSet = {}
-//   getSet.value
-//   getSet.set = (val)=>{this.value = val}
-//   getSet.get = ()=>{return this.value}
-//   return getSet
-// }
+// Test: gameGenerator the giveUp function sets a new winning number
+// Error: Error: Expected true to be false.
 
-// let objectExam = getAndSet()
-// objectExam.set(5)
-// console.log(objectExam.value)
-// console.log(objectExam.get())
-// objectExam.value = 3
-// console.log(objectExam.value)
-// console.log(objectExam.get())
+// Test: gameGenerator the giveUp function resets the number of guesses
+// Error: TypeError: game.numberGuesses is not a function
+
+// Test: gameGenerator the guess function guessing increases numGuesses()
+// Error: TypeError: game.numberGuesses is not a function
 
 function randomInteger(n) {
   return Math.floor(Math.random() * (n + 1));
@@ -34,16 +26,17 @@ function gameGenerator(num) {
     // set setWinningNumber (winningNumber) {
     //   this.winningNumber = winningNumber
     // },
-    // get getWinningNumber (){
-    //   return this.winningNumber
-    // },
+    get getReset (){
+      return this.reset
+    },
     reset : ()=>{
       guesses = [];
       winningNumber = randomInteger(num);
     },
     giveUp : ()=>{
       let previousWinningNumber = winningNumber
-      gameGenerator(num)
+      guesses = [];
+      winningNumber = randomInteger(num);
       return previousWinningNumber},//getWinningNumber},
     guess : (guessNumber)=>{
       if(guessNumber === winningNumber){ 
@@ -53,11 +46,29 @@ function gameGenerator(num) {
         return false;
       }
     },
-    numGuesses : () =>{
+    numberGuesses : () =>{
       return guesses.length
     }
   }
 }
+
+// Test: accountGenerator the transactionHistory function contains transactions from previous operations
+// Error: Error: Expected $[0].before = 500 to equal 0.
+
+// Test: accountGenerator the transactionHistory function returns only the last x transactions
+// Error: Error: Expected $[0].type = 'deposit' to equal 'withdrawl'.
+
+// Test: accountGenerator the getBalance function returns correct balance after a deposit
+// Error: Error: Expected 'Your balance is: $600' to be 600.
+
+// Test: accountGenerator the getBalance function should return the initial balance
+// Error: Error: Expected 'Your balance is: $0' to be 0.
+
+// Test: accountGenerator the getBalance function returns correct balance after a withdrawal
+// Error: Error: Expected 'Your balance is: $500' to be 500.
+
+// Test: accountGenerator the withdraw function the return value has correct values for the fields and denies transactions that would cause the balance to drop below 0
+// Error: Error: Expected 'withdrawl' to be 'withdrawal'.
 
 function accountGenerator(initial) {
   let balance = initial;
@@ -68,7 +79,7 @@ function accountGenerator(initial) {
         let startingBalance = balance
         balance = balance - amount;
         transactions.push({
-          type: "withdrawl",
+          type: "withdrawal",
           amount: amount,
           before: startingBalance, 
           after: balance,
@@ -76,7 +87,7 @@ function accountGenerator(initial) {
           time: new Date()
         })
         return {
-          type: "withdrawl",
+          type: "withdrawal",
           amount: amount,
           before: startingBalance,
           after: balance,
@@ -85,7 +96,7 @@ function accountGenerator(initial) {
         };
       }
       transactions.push({
-        type: "withdrawl",
+        type: "withdrawal",
         amount: amount,
         before: balance,
         after: balance,
@@ -93,7 +104,7 @@ function accountGenerator(initial) {
         time: new Date()
       })
       return {
-        type: "withdrawl",
+        type: "withdrawal",
         amount: amount,
         before: balance,
         after: balance,
@@ -123,11 +134,12 @@ function accountGenerator(initial) {
         };
     },
     getBalance: ()=>{
-      return `Your balance is: $${balance}`;
+      return balance;
     },
     transactionHistory: (n)=>{
       let result = [];
-      for (let i = transactions.length - 1; i > transactions.length - 1 - n; i--){
+      //for (let i = transactions.length - 1; i > transactions.length - 1 - n; i--){
+        for (let i = 0; i < n; i++){
         result.push(transactions[i])
       }
       return result;
@@ -146,7 +158,7 @@ function accountGenerator(initial) {
       }
 
       for (let i = 0; i < transactions.length; i++){
-        if (transactions[i].type === "withdrawl" && transactions[i].status === "approved"){
+        if (transactions[i].type === "withdrawal" && transactions[i].status === "approved"){
           withdrawlAmount = withdrawlAmount + transactions[i].amount;
           withdrawlCount = withdrawlCount + 1;
         }
