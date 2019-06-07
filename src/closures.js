@@ -95,19 +95,21 @@ function accountGenerator(initial) {
           time: new Date()
         };
       }
+      let startingBalance = balance
+        balance = balance - amount;
       transactions.push({
         type: "withdrawal",
         amount: amount,
-        before: balance,
-        after: balance,
+        before: startingBalance,
+        after: startingBalance,
         status: "denied",
         time: new Date()
       })
       return {
         type: "withdrawal",
         amount: amount,
-        before: balance,
-        after: balance,
+        before: startingBalance,
+        after: startingBalance,
         status: "denied",
         time: new Date()
       };;
@@ -138,8 +140,8 @@ function accountGenerator(initial) {
     },
     transactionHistory: (n)=>{
       let result = [];
-      //for (let i = transactions.length - 1; i > transactions.length - 1 - n; i--){
-        for (let i = 0; i < n; i++){
+      for (let i = transactions.length - 1; i > transactions.length - 1 - n; i--){
+        // for (let i = 0; i < n; i++){
         result.push(transactions[i])
       }
       return result;
