@@ -140,8 +140,8 @@ function accountGenerator(initial) {
     },
     transactionHistory: (n)=>{
       let result = [];
-      for (let i = transactions.length - 1; i > transactions.length - 1 - n; i--){
-        // for (let i = 0; i < n; i++){
+      // for (let i = transactions.length - 1; i > transactions.length - 1 - n; i--){
+        for (let i = 0; i < n; i++){
         result.push(transactions[i])
       }
       return result;
