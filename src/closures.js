@@ -138,17 +138,13 @@ function accountGenerator(initial) {
       return balance;
     },
     transactionHistory: (n)=>{
-      let reverseTransaction = []
-      for (let i = transactions.length - 1; i > -1; i--){
-        reverseTransaction.push(transactions[i])
+       let result = [];
+       for (let i = transactions.length - 1 - n ; i > transactions.length - 1 ; i++){
+        // for (let i = 0; i < n; i++){
+        result.push(transactions[i])
       }
-
-      let result = []
-      for (let i = 0; i < n; i++){
-        result.push(reverseTransaction[i])
-      }
-
       return result;
+      
       // let result = [];
       // for (let i = transactions.length - 1; i > transactions.length - 1 - n; i--){
       //   // for (let i = 0; i < n; i++){
