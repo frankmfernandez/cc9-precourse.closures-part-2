@@ -139,7 +139,7 @@ function accountGenerator(initial) {
     },
     transactionHistory: (n)=>{
        let result = [];
-       for (let i = transactions.length - 1 - n ; i < transactions.length - 1 ; i++){
+       for (let i = transactions.length - n ; i < transactions.length ; i++){
         // for (let i = 0; i < n; i++){
         result.push(transactions[i])
       }
