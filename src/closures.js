@@ -94,27 +94,24 @@ function accountGenerator(initial) {
           status: "approved",
           time: new Date()
         };
-      } else {
-        let startingBalance = balance
-          balance = balance - amount;
-        transactions.push({
-          type: "withdrawal",
-          amount: amount,
-          before: startingBalance,
-          after: startingBalance,
-          status: "denied",
-          time: new Date()
-        })
-        return {
-          type: "withdrawal",
-          amount: amount,
-          before: startingBalance,
-          after: startingBalance,
-          status: "denied",
-          time: new Date()
-        };;
-
       }
+      
+      transactions.push({
+        type: "withdrawal",
+        amount: amount,
+        before: balance,
+        after: balance,
+        status: "denied",
+        time: new Date()
+      })
+      return {
+        type: "withdrawal",
+        amount: amount,
+        before: balance,
+        after: balance,
+        status: "denied",
+        time: new Date()
+      };;
     },
     
     deposit: function(amount) {
